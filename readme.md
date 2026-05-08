@@ -1,0 +1,1 @@
+Use express on backend, React on the frontend, mongoDB for the database
