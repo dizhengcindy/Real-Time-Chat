@@ -1,1 +1,3 @@
 Use express on backend, React on the frontend, mongoDB for the database
+<!-- john@gmail.com -->
+<!-- 123456 -->

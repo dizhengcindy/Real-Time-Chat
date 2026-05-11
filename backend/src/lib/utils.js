@@ -14,3 +14,7 @@ export const generateToken = (userId, res) => {
 
     return token;
 };
+
+export const updateProfile = async(req, res) => {
+
+};
