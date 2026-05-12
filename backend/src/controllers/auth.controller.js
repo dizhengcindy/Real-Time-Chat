@@ -86,23 +86,49 @@ export const logout = (req, res)=>{//clear out cookies
     }
 };
 
+// Returns short-lived signed upload params so the browser can upload
+// directly to Cloudinary without sending the file through our server.
+// Only the parameters we sign here are allowed in the upload request.
+export const getCloudinarySignature = (req, res) => {
+    try {
+        const timestamp = Math.round(Date.now() / 1000);
+        const folder = "chat-app/avatars";
+
+        const signature = cloudinary.utils.api_sign_request(
+            { timestamp, folder },
+            process.env.CLOUDINARY_API_SECRET
+        );
+
+        res.status(200).json({
+            signature,
+            timestamp,
+            folder,
+            apiKey: process.env.CLOUDINARY_API_KEY,
+            cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+        });
+    } catch (error) {
+        console.log("Error in getCloudinarySignature controller", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
 export const updateProfile = async(req, res)=>{
     try {
         const {profilePic} = req.body;
         if(!profilePic){
-            res.status(400).json({message: "Profile picture is required"});
+            return res.status(400).json({message: "Profile picture is required"});
         }
-        const userId = res.user._id;
 
-        const uploadedResponse = await cloudinary.uploader.upload(profilePic);
+        const userId = req.user._id;
 
-        const updatedUser = await User.findOneAndUpdate(userId, 
-            {profilePic: uploadedResponse.secure_url}, 
-            {new: true}//return the updated user
-        );
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { profilePic },
+            { new: true }
+        ).select("-password");
 
         if(!updatedUser){
-            res.status(400).json({message: "Failed to update profile picture"});
+            return res.status(400).json({message: "Failed to update profile picture"});
         }
 
         res.status(200).json(updatedUser);
