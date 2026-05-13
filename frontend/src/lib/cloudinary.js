@@ -7,9 +7,22 @@ import { axiosInstance } from "./axios";
 // Cloudinary call so that:
 //   - our auth cookie is NOT sent to a third-party origin
 //   - axios baseURL/withCredentials don't apply
+//
+// Every field we attach to FormData must match what the backend signed.
+// If anything differs (including types — booleans become "true" strings),
+// Cloudinary rejects with "Invalid Signature".
 export const uploadImageToCloudinary = async (file) => {
   const { data } = await axiosInstance.get("/auth/cloudinary-signature");
-  const { signature, timestamp, folder, apiKey, cloudName } = data;
+  const {
+    signature,
+    timestamp,
+    folder,
+    publicId,
+    overwrite,
+    invalidate,
+    apiKey,
+    cloudName,
+  } = data;
 
   const formData = new FormData();
   formData.append("file", file);
@@ -17,6 +30,9 @@ export const uploadImageToCloudinary = async (file) => {
   formData.append("timestamp", timestamp);
   formData.append("signature", signature);
   formData.append("folder", folder);
+  formData.append("public_id", publicId);
+  formData.append("overwrite", String(overwrite));
+  formData.append("invalidate", String(invalidate));
 
   const response = await fetch(
     `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,

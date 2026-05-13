@@ -89,13 +89,26 @@ export const logout = (req, res)=>{//clear out cookies
 // Returns short-lived signed upload params so the browser can upload
 // directly to Cloudinary without sending the file through our server.
 // Only the parameters we sign here are allowed in the upload request.
+//
+// public_id is derived from the authenticated user's _id so each user's
+// avatar lives at a single, fixed path. overwrite + invalidate make
+// re-uploads replace the file and purge the CDN cache.
 export const getCloudinarySignature = (req, res) => {
     try {
         const timestamp = Math.round(Date.now() / 1000);
         const folder = "chat-app/avatars";
+        const publicId = `avatar_${req.user._id}`;
+
+        const paramsToSign = {
+            timestamp,
+            folder,
+            public_id: publicId,
+            overwrite: true,
+            invalidate: true, //clear cache in CDN
+        };
 
         const signature = cloudinary.utils.api_sign_request(
-            { timestamp, folder },
+            paramsToSign,
             process.env.CLOUDINARY_API_SECRET
         );
 
@@ -103,6 +116,9 @@ export const getCloudinarySignature = (req, res) => {
             signature,
             timestamp,
             folder,
+            publicId,
+            overwrite: true,
+            invalidate: true,
             apiKey: process.env.CLOUDINARY_API_KEY,
             cloudName: process.env.CLOUDINARY_CLOUD_NAME,
         });
