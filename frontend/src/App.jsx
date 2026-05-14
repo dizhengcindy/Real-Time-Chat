@@ -1,15 +1,16 @@
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
-import { useEffect } from 'react'
 import { Loader } from 'lucide-react'
+import { useEffect } from 'react'
+import { Toaster } from 'react-hot-toast'
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
 import { HomePage } from './pages/HomePage'
-import { SignupPage } from './pages/SignupPage'
 import { LoginPage } from './pages/LoginPage'
-import { SettingsPage } from './pages/SettingsPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { SettingsPage } from './pages/SettingsPage'
+import { SignupPage } from './pages/SignupPage'
 import { useAuthStore } from './store/useAuthStore'
-import { Toaster } from 'react-hot-toast'
+import { useThemeStore } from './store/useThemeStore'
 
 const ProtectedRoutes = () => {
   const { authUser } = useAuthStore()
@@ -23,6 +24,7 @@ const PublicOnlyRoutes = () => {
 
 const App = () => {
   const { authUser, isCheckingAuth, checkAuth } = useAuthStore()
+  const { theme } = useThemeStore()
 
   useEffect(() => {
     checkAuth()
@@ -37,7 +39,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
       <Routes>
         <Route element={<ProtectedRoutes />}>

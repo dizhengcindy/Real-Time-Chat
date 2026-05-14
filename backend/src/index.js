@@ -5,6 +5,7 @@ import { connectDB } from './lib/db.js';
 import authRoutes from './routes/auth.route.js';
 import messageRoutes from './routes/message.route.js';
 import cors from "cors";
+import { PORT_NUMBER } from '../../frontend/vite.config.js';
 
 dotenv.config();
 
@@ -12,9 +13,10 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors({
-  origin: "http://localhost:5175",
+  origin: `http://localhost:${PORT_NUMBER}`,
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 

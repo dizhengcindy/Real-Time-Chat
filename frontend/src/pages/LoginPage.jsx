@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { Mail } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAuthStore } from "../store/useAuthStore";
 import { AuthLayout } from "../components/AuthLayout";
 import { FormInput } from "../components/FormInput";
 import { PasswordInput } from "../components/PasswordInput";
 import { SubmitButton } from "../components/SubmitButton";
+import { useAuthStore } from "../store/useAuthStore";
 
 export const LoginPage = () => {
   const [formData, setFormData] = useState({

@@ -1,0 +1,13 @@
+---
+description: Backend — Express, Mongoose, routes, and API style for this repo
+globs: backend/**/*.js
+alwaysApply: false
+---
+
+# Backend conventions
+
+- **Stack**: Express 5 (ESM: `"type": "module"`), Mongoose, `cookie-parser`, `cors`, JWT (`jsonwebtoken`), optional Socket.io and Cloudinary as wired in the repo.
+- **Entry**: `src/index.js` mounts routes under `/api/auth` and `/api/messages`; keep new HTTP routes under `/api/...` and register them there (or follow the existing route module pattern).
+- **Structure**: Follow existing layout — `routes/`, `controllers/`, `models/`, `lib/` — and match naming (e.g. `*.route.js`, `*.controller.js`).
+- **Responses**: Stay consistent with existing controllers for status codes and JSON error shapes expected by the frontend (`error.response?.data` patterns).
+- **Secrets**: Use `dotenv` / `process.env`; never commit credentials or replace `.env` values with literals in code.

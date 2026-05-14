@@ -1,5 +1,5 @@
+import { Eye, EyeOff, Lock } from "lucide-react";
 import { useState } from "react";
-import { Lock, Eye, EyeOff } from "lucide-react";
 
 export const PasswordInput = ({
   label = "Password",

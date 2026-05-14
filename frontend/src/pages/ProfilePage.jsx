@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { Mail, User } from "lucide-react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
-import { useAuthStore } from "../store/useAuthStore";
-import { InfoField } from "../components/InfoField";
 import { Avatar } from "../components/Avatar";
 import { Card } from "../components/Card";
+import { InfoField } from "../components/InfoField";
 import { uploadImageToCloudinary } from "../lib/cloudinary";
+import { useAuthStore } from "../store/useAuthStore";
 
 export const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();

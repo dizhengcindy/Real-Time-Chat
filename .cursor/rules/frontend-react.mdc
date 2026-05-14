@@ -1,0 +1,15 @@
+---
+description: Frontend — React, Vite, Tailwind, Zustand patterns for this repo
+globs: frontend/**/*.{js,jsx}
+alwaysApply: false
+---
+
+# Frontend conventions
+
+- **Stack**: React 19, Vite, React Router, Tailwind CSS + DaisyUI, Zustand, Axios (`axiosInstance` from `src/lib/axios.js`), `react-hot-toast`, `lucide-react`.
+- **HTTP**: Use `axiosInstance` only (not raw `axios`) so `baseURL` and `withCredentials` stay consistent.
+- **State**: New global client state goes in `src/store/` with Zustand; match existing store shape and loading flags.
+- **UI**: Prefer Tailwind + DaisyUI patterns already used in pages/components; keep spacing and typography consistent with nearby code.
+- **Imports**: Project uses `"type": "module"`; use ESM imports with `.jsx` / `.js` extensions where the codebase already does.
+- **Import order**: Sort `import` lines alphabetically by the `from '...'` / `from "..."` module path (A→Z). Use two blocks when it keeps noise down: (1) third-party packages, sorted; (2) blank line; (3) project imports (`./`, `../`, `@/`), sorted.
+- **Import depth**: If a relative path would need **more than two** parent hops (`../../../` or deeper), do not use that chain. Import from the `src` root using the `@/` alias (e.g. `@/lib/axios.js`, `@/components/Chat.jsx`) so the path stays shallow and stable.
