@@ -1,11 +1,10 @@
 import { Mail, User } from "lucide-react";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 import { Avatar } from "../components/Avatar";
 import { Card } from "../components/Card";
 import { InfoField } from "../components/InfoField";
-import { uploadImageToCloudinary } from "../lib/cloudinary";
+import { uploadImageWithLocalPreview } from "../lib/uploadImageWithLocalPreview";
 import { useAuthStore } from "../store/useAuthStore";
 
 export const ProfilePage = () => {
@@ -14,26 +13,16 @@ export const ProfilePage = () => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
-
-    // Show an instant local preview while the upload happens in the background.
-    const previewUrl = URL.createObjectURL(file);
-    setSelectedImg(previewUrl);
-
-    try {
-      const uploadedUrl = await uploadImageToCloudinary(file);
-      await updateProfile({ profilePic: uploadedUrl });
-    } catch (error) {
-      console.log("Error uploading profile picture", error.message);
-      toast.error("Failed to upload image");
-      setSelectedImg(null);
-    } finally {
-      URL.revokeObjectURL(previewUrl);
-    }
+    await uploadImageWithLocalPreview(file, {
+      onPreview: setSelectedImg,
+      afterUpload: (secureUrl) => updateProfile({ profilePic: secureUrl }),
+      clearPreviewAfterSuccess: true,
+      logContext: "profile picture",
+    });
   };
 
   return (
-    <div className="h-screen pt-20">
+    <div className="pt-20">
       <div className="max-w-2xl mx-auto p-4 py-8">
         <Card className="space-y-8">
           <div className="text-center">
