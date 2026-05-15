@@ -1,4 +1,4 @@
-import { ChatContainer, NoChatSelected, Sidebar } from '../components'
+import { ChatContainer, NoChatSelected, Sidebar } from '../components/home'
 import { useChatStore } from '../store/useChatStore'
 
 export const HomePage = () => {

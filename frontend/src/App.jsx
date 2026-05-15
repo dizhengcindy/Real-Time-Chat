@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 
-import Navbar from './components/Navbar'
+import Navbar from './components/common'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { ProfilePage } from './pages/ProfilePage'

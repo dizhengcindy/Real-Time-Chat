@@ -1,9 +1,7 @@
 import { Mail, User } from "lucide-react";
 import { useState } from "react";
 
-import { Avatar } from "../components/Avatar";
-import { Card } from "../components/Card";
-import { InfoField } from "../components/InfoField";
+import { Avatar, Card, InfoField } from "../components/profile";
 import { uploadImageWithLocalPreview } from "../lib/uploadImageWithLocalPreview";
 import { useAuthStore } from "../store/useAuthStore";
 

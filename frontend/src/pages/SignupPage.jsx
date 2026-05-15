@@ -3,10 +3,12 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-import { AuthLayout } from "../components/AuthLayout";
-import { FormInput } from "../components/FormInput";
-import { PasswordInput } from "../components/PasswordInput";
-import { SubmitButton } from "../components/SubmitButton";
+import {
+  AuthLayout,
+  FormInput,
+  PasswordInput,
+  SubmitButton,
+} from "../components/auth";
 import { useAuthStore } from "../store/useAuthStore";
 
 export const SignupPage = () => {

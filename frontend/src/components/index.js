@@ -1,14 +1,17 @@
-export { default as AuthImagePattern } from './AuthImagePattern.jsx'
-export { AuthLayout } from './AuthLayout.jsx'
-export { Avatar } from './Avatar.jsx'
-export { Card } from './Card.jsx'
-export { ChatContainer } from './ChatContainer.jsx'
-export { ChatHeader } from './ChatHeader.jsx'
-export { FormInput } from './FormInput.jsx'
-export { InfoField } from './InfoField.jsx'
-export { MessageInput } from './MessageInput.jsx'
-export { default as Navbar } from './Navbar.jsx'
-export { NoChatSelected } from './NoChatSelected.jsx'
-export { PasswordInput } from './PasswordInput.jsx'
-export { Sidebar } from './Sidebar.jsx'
-export { SubmitButton } from './SubmitButton.jsx'
+// Barrel re-exports; page code can import from `components/home`, `components/auth`, etc.
+export {
+  AuthImagePattern,
+  AuthLayout,
+  FormInput,
+  PasswordInput,
+  SubmitButton,
+} from './auth'
+export { default as Navbar } from './common'
+export {
+  ChatContainer,
+  ChatHeader,
+  MessageInput,
+  NoChatSelected,
+  Sidebar,
+} from './home'
+export { Avatar, Card, InfoField } from './profile'
