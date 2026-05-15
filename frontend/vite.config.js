@@ -5,8 +5,6 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 
-export const PORT_NUMBER = 5173;
-
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -15,7 +13,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: PORT_NUMBER,
+    port: 5173,
     strictPort: true, // fail if 5173 is busy instead of jumping ports
   },
 })
