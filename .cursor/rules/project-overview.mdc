@@ -1,0 +1,11 @@
+---
+description: Real-Time Chat monorepo layout and shared conventions
+alwaysApply: true
+---
+
+# Real-Time Chat — project context
+
+- **Monorepo**: `frontend/` (Vite + React) and `backend/` (Express) are separate packages; each has its own `package.json` and `npm run dev`.
+- **API**: The SPA talks to the backend under `/api` (see `frontend/src/lib/axios.js` for `baseURL`). Keep frontend URLs and backend `cors.origin` aligned with the Vite dev port when working locally.
+- **Auth transport**: HTTP client uses `withCredentials: true` for cookies; preserve that when changing axios or CORS.
+- **Scope**: Prefer minimal, task-scoped changes. Do not add README or doc files unless the user asks.
